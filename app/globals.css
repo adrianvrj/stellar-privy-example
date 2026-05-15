@@ -129,6 +129,27 @@ button {
   box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.18);
 }
 
+.copy-button {
+  min-height: 30px;
+  border: 1px solid var(--ink);
+  background: var(--sky);
+  color: var(--ink);
+  padding: 0.35rem 0.55rem;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.66rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  transition:
+    transform 140ms ease,
+    box-shadow 140ms ease;
+}
+
+.copy-button:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0 var(--ink);
+}
+
 ::selection {
   background: var(--ink);
   color: var(--paper-soft);

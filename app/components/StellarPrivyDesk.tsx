@@ -72,6 +72,7 @@ export function StellarPrivyDesk() {
   const [memo, setMemo] = useState('privy-stellar-demo');
   const [lastHash, setLastHash] = useState('');
   const [pending, setPending] = useState<string | null>(null);
+  const [copiedAddress, setCopiedAddress] = useState(false);
   const [logs, setLogs] = useState<LogLine[]>([
     { tone: 'info', message: 'Connect with Privy. A Stellar wallet will be created automatically.' },
   ]);
@@ -115,6 +116,19 @@ export function StellarPrivyDesk() {
       addLog(`Created Stellar wallet ${compactAddress(result.wallet.address)}.`, 'success');
     });
   }, [addLog, createWallet, runAction]);
+
+  const copyWalletAddress = async () => {
+    if (!address) return;
+
+    try {
+      await navigator.clipboard.writeText(address);
+      setCopiedAddress(true);
+      addLog('Wallet address copied to clipboard.', 'success');
+      window.setTimeout(() => setCopiedAddress(false), 1800);
+    } catch {
+      addLog('Unable to copy wallet address from this browser context.', 'error');
+    }
+  };
 
   useEffect(() => {
     if (!ready || !authenticated || address || walletCreationStarted.current) return;
@@ -202,7 +216,11 @@ export function StellarPrivyDesk() {
 
             <div className="grid gap-4 sm:grid-cols-3">
               <Metric label="Status" value={!ready ? 'Loading' : authenticated ? 'Signed in' : 'Guest'} />
-              <Metric label="Wallet" value={compactAddress(address)} />
+              <WalletMetric
+                address={address}
+                copied={copiedAddress}
+                onCopy={copyWalletAddress}
+              />
               <Metric label="Testnet XLM" value={Number(nativeBalance).toFixed(4)} />
             </div>
 
@@ -336,6 +354,39 @@ function Metric({ label, value }: { label: string; value: string }) {
         {label}
       </div>
       <div className="mt-3 truncate font-[var(--font-mono)] text-sm font-semibold">{value}</div>
+    </div>
+  );
+}
+
+function WalletMetric({
+  address,
+  copied,
+  onCopy,
+}: {
+  address?: string;
+  copied: boolean;
+  onCopy: () => void;
+}) {
+  return (
+    <div className="border border-[var(--line)] bg-white p-4">
+      <div className="font-[var(--font-mono)] text-[11px] uppercase tracking-[0.16em] text-black/50">
+        Wallet
+      </div>
+      <div className="mt-3 flex min-w-0 items-center gap-2">
+        <div className="min-w-0 flex-1 truncate font-[var(--font-mono)] text-sm font-semibold" title={address}>
+          {compactAddress(address)}
+        </div>
+        {address && (
+          <button
+            aria-label="Copy wallet address"
+            className="copy-button"
+            onClick={onCopy}
+            type="button"
+          >
+            {copied ? 'Copied' : 'Copy'}
+          </button>
+        )}
+      </div>
     </div>
   );
 }
