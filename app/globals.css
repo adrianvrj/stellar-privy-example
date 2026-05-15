@@ -1,0 +1,135 @@
+@import "tailwindcss";
+
+:root {
+  --ink: #11140d;
+  --paper: #f6f0df;
+  --paper-soft: #fffaf0;
+  --teal: #0f766e;
+  --sky: #7dd3fc;
+  --marigold: #f6b73c;
+  --rose: #ef7b84;
+  --line: rgba(17, 20, 13, 0.16);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background:
+    linear-gradient(90deg, rgba(17, 20, 13, 0.04) 1px, transparent 1px),
+    linear-gradient(0deg, rgba(17, 20, 13, 0.035) 1px, transparent 1px),
+    radial-gradient(circle at 15% 15%, rgba(125, 211, 252, 0.4), transparent 28rem),
+    radial-gradient(circle at 85% 18%, rgba(246, 183, 60, 0.42), transparent 24rem),
+    var(--paper);
+  background-size: 28px 28px, 28px 28px, auto, auto, auto;
+  color: var(--ink);
+  font-family: var(--font-sans), sans-serif;
+  letter-spacing: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+.signin-button,
+.primary-button,
+.secondary-button {
+  min-height: 46px;
+  border: 1px solid var(--ink);
+  padding: 0.75rem 1rem;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  transition:
+    transform 160ms ease,
+    box-shadow 160ms ease,
+    background 160ms ease;
+}
+
+.signin-button {
+  min-height: 58px;
+  border-width: 2px;
+  background: var(--marigold);
+  color: var(--ink);
+  padding: 0.95rem 1.45rem;
+  font-size: 0.92rem;
+  box-shadow: 7px 7px 0 var(--ink);
+}
+
+.primary-button {
+  background: var(--ink);
+  color: var(--paper-soft);
+  box-shadow: 4px 4px 0 var(--marigold);
+}
+
+.secondary-button {
+  background: transparent;
+  color: var(--ink);
+  box-shadow: 4px 4px 0 rgba(17, 20, 13, 0.14);
+}
+
+.signin-button:hover:not(:disabled),
+.primary-button:hover:not(:disabled),
+.secondary-button:hover:not(:disabled) {
+  transform: translate(-1px, -1px);
+  box-shadow: 6px 6px 0 var(--sky);
+}
+
+.signin-button:hover:not(:disabled) {
+  box-shadow: 9px 9px 0 var(--teal);
+}
+
+.signin-button:disabled,
+.primary-button:disabled,
+.secondary-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.48;
+}
+
+.field-label {
+  display: block;
+  margin-bottom: 0.45rem;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(17, 20, 13, 0.58);
+}
+
+.field {
+  min-height: 48px;
+  width: 100%;
+  border: 1px solid var(--line);
+  background: var(--paper-soft);
+  padding: 0.8rem 0.9rem;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.86rem;
+  outline: none;
+}
+
+.field:focus {
+  border-color: var(--teal);
+  box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.18);
+}
+
+::selection {
+  background: var(--ink);
+  color: var(--paper-soft);
+}
