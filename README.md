@@ -25,6 +25,8 @@ Before running the example, create an app in the Privy dashboard:
 3. Create a new app.
 4. Copy the app ID from your Privy dashboard.
 
+The example defaults to email login only. If you want Google, Apple, Discord, Twitter/X, or another provider, enable and configure that provider in your Privy dashboard first, then add it to `loginMethods` in `app/providers.tsx`. Privy will throw an error if the app requests a login method that is not allowed for your Privy app.
+
 ## Setup
 
 Install dependencies:
